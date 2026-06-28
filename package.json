@@ -1,0 +1,26 @@
+{
+  "name": "doan",
+  "version": "1.0.0",
+  "description": "jwt nodejs react",
+  "license": "ISC",
+  "author": "DiKang",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node src/server.js"
+  },
+  "dependencies": {
+    "@babel/node": "7.15.4",
+    "body-parser": "2.3.0",
+    "dotenv": "17.4.2",
+    "ejs": "6.0.1",
+    "express": "5.2.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.15.4",
+    "@babel/core": "^7.15.4",
+    "@babel/preset-env": "^7.15.4",
+    "nodemon": "^3.1.14"
+  }
+}
