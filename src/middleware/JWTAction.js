@@ -26,12 +26,22 @@ const verifyToken = (token) => {
   return data;
 };
 
+
+const extractToken = (req) => {
+  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+    return req.headers.authorization.split(' ')[1];
+  }
+  if (req.cookies && req.cookies.jwt) {
+    return req.cookies.jwt;
+  }
+  return null;
+};
+
 const checkUserJWT = (req, res, next) => {
   const nonSecurePaths = ["/login", "/register"];
   if (nonSecurePaths.includes(req.path)) return next();
-  let cookie = req.cookies;
-  if (cookie && cookie.jwt) {
-    let token = cookie.jwt;
+  let token = extractToken(req); // Đọc token từ Header hoặc Cookie
+  if (token) {
     let decoded = verifyToken(token);
     if (decoded) {
       req.user = decoded;
@@ -39,18 +49,20 @@ const checkUserJWT = (req, res, next) => {
       return next();
     } else {
       return res.status(401).json({
-        EC: "1",
+        EC: -1,
         EM: "Not authenticated the user",
         DT: "",
       });
     }
+  } else {
+    return res.status(401).json({
+      EC: -1,
+      EM: "Not authenticated the user",
+      DT: "",
+    });
   }
-  return res.status(401).json({
-    EC: "1",
-    EM: "Not authenticated the user",
-    DT: "",
-  });
 };
+
 
 const checkUserPermission = (req, res, next) => {
   const nonSecurePaths = ["/login", "/register"];
