@@ -38,7 +38,7 @@ const extractToken = (req) => {
 };
 
 const checkUserJWT = (req, res, next) => {
-  const nonSecurePaths = ["/login", "/register"];
+  const nonSecurePaths = ["/login", "/register", "/logout"];
   if (nonSecurePaths.includes(req.path)) return next();
   let token = extractToken(req); // Đọc token từ Header hoặc Cookie
   if (token) {
@@ -65,7 +65,7 @@ const checkUserJWT = (req, res, next) => {
 
 
 const checkUserPermission = (req, res, next) => {
-  const nonSecurePaths = ["/login", "/register"];
+  const nonSecurePaths = ["/login", "/register", "/logout"];
   if (nonSecurePaths.includes(req.path) || req.path === "/account") return next();
   if (req.user) {
     let email = req.user.email;

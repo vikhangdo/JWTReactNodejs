@@ -8,6 +8,7 @@ const initAPIRoutes = (app) => {
   router.use(checkUserJWT, checkUserPermission);
   router.post("/register", apiController.handleRegister);
   router.post("/login", apiController.handleLogin);
+  router.post("/logout", apiController.handleLogOut);
 
   router.get("/account", userController.getUserAccount);
 

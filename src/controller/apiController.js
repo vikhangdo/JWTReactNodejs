@@ -40,4 +40,13 @@ const handleLogin = async (req, res) => {
     DT: data.DT,
   });
 };
-export default { handleRegister, handleLogin };
+
+const handleLogOut = (req, res) => {
+  res.clearCookie('jwt');
+  return res.status(200).json({
+    EM: "ok",
+    EC: 0,
+    DT: "",
+  });
+}
+export default { handleRegister, handleLogin, handleLogOut };
